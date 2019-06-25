@@ -1,0 +1,57 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add nodemom -D
+
+PATH: 
+  C:\Python27\;C:\Python27\Scripts;C:\app\Leo-PC\product\18.0.0\dbhomeXE\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;E:\oracle\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\nodejs\;C:\Program Files\Java\jdk1.8.0_211\bin;%ANDROID_HOME%\platform-tools;%ANDROID_HOME%\tools;C:\Users\leona\AppData\Local\Microsoft\WindowsApps;C:\Users\leona\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\leona\AppData\Local\Yarn\bin;C:\Users\leona\AppData\Roaming\npm
+
+Yarn version: 
+  1.16.0
+
+Node version: 
+  12.4.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/nodemom: Not found
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:65200:18)
+      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:129590:22)
+      at Request.emit (events.js:200:13)
+      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:130562:10)
+      at Request.emit (events.js:200:13)
+      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:130484:12)
+      at Object.onceWrapper (events.js:288:20)
+      at IncomingMessage.emit (events.js:205:15)
+      at endReadableNT (_stream_readable.js:1154:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:9)
+
+npm manifest: 
+  {
+    "name": "api_nodejs",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/LeoApd/apiNodejs.git"
+    },
+    "author": "Leonardo silva",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/LeoApd/apiNodejs/issues"
+    },
+    "homepage": "https://github.com/LeoApd/apiNodejs#readme",
+    "dependencies": {
+      "express": "^4.17.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
