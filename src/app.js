@@ -36,6 +36,7 @@ app.use(bodyParser.json());
 }); */
 
 //configurar route
-app.use(require('./routes/products'));
+app.use(require('./routes/router'));
+
 
 app.listen(3333);//adicionando a porta da aplicação
