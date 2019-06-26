@@ -31,12 +31,7 @@ mongoose.connection.on('connected', () => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-/* app.use((req, res, next) => {
-    next();
-}); */
-
 //configurar route
 app.use(require('./routes/router'));
-
 
 app.listen(3333);//adicionando a porta da aplicação

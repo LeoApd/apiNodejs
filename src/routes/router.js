@@ -15,5 +15,8 @@ routes.post('/product/listOne', ProductController.listOne);
 //rotas usuário
 routes.post('/user/create', UserController.create);
 
+//rota de autenticação
+routes.post('/user/auth', UserController.auth);
+
 module.exports = routes;//teste teste ultimo teste
 

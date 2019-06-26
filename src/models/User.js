@@ -17,7 +17,8 @@ const UserSchema = new mongoose.Schema({
         type: String
     },
     email:{
-        type: String
+        type: String,
+        unique: true
     },
     address:{
         cep: { type: String },
@@ -28,11 +29,26 @@ const UserSchema = new mongoose.Schema({
         uf: { type: String },
         number: { type: Number },
     },
-    credentials:{
-        login: { type: String },
-        password: { type: String },
-        profile: { type: String }
+   
+    login: { 
+        type: String, 
+        require: true, 
+        unique: true
+    },
+    password: { 
+        type: String,
+        require: true, 
+        unique: true, 
+        select: true
+    },
+    profile: { 
+        type: String 
+    },
+    cretated: { 
+        type: Date, 
+        default: Date.now
     }
+    
 });
 
 module.exports = mongoose.model('User', UserSchema);

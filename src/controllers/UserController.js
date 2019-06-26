@@ -2,9 +2,28 @@ const User = require('../models/User');
 
 module.exports = {
     async create (req, res) {
-        const { cpf } = req.body;
-        if(await User.findOne({ cpf })) return res.status(400).send({ error: "Cpf já cadastrado" });
-        const user = await User.create(req.body);
-        return res.send({ user, message: "Usuário cadastrado com sucesso" });
+        try{
+            const { cpf } = req.body;
+            if(await User.findOne({ cpf })) return res.status(400).send({ error: "Cpf já cadastrado" });
+            const user = await User.create(req.body);
+            user.password = undefined;
+            return res.send({ user, message: "Usuário cadastrado com sucesso" });
+        }catch(err){
+            return res.status(500).send({ error: 'Erro ao cadastrar user' });
+        }
+    },
+
+    async auth (req, res){
+        try{
+            const { login, password } = req.body;
+            if(!login || !password) return res.send({ error: "Preencha login e senha" });
+            const user = await User.findOne({ login }).select('+password');
+            if(!user) return res.send({ error: "Credenciais não cadastradas" });
+            if(await password != user.password) return res.send({ error: 'Usuário ou senha invalido' });
+            user.password = undefined;
+            return res.send({ user, message: "Usuário autenticado com sucesso" });
+        }catch(err){
+            return res.status(500).send({ error: `Erro ao tentar autenticar usuário ${err}` });
+        }
     }
 }
