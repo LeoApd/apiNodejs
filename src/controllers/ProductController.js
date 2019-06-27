@@ -1,5 +1,5 @@
 const Product = require('../models/Product');
-
+const auth = require('../middleware/auth');
 module.exports = {
     async save (req, res) {
         const { code, name, value, amount, description } = req.body;
