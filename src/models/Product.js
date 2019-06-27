@@ -5,7 +5,7 @@ const ProductSchema = new mongoose.Schema ({
     name: String,//nome
     value: Number,//valor
     amount: Number,//quantidade
-    description: String,//descrição
+    description: String,//descrição/
     //image: String,//imagem
     cretated: { type: Date, default: Date.now } //data que foi salvo no banco
 });

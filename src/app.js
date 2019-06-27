@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 
 //import arquivos internos
 const config = require('./config/config');//importando as configuranção
-/* const productRoute = require('./routes/products');//importando routa do produto */
 
 const app = express();
 

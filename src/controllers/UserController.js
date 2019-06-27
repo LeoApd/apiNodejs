@@ -1,5 +1,10 @@
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const config = require('../config/config');
 
+createToken = (userId) => {
+    return jwt.sign({ id: userId }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRES_IN });
+}
 module.exports = {
     async create (req, res) {
         try{
@@ -21,7 +26,7 @@ module.exports = {
             if(!user) return res.send({ error: "Credenciais não cadastradas" });
             if(await password != user.password) return res.send({ error: 'Usuário ou senha invalido' });
             user.password = undefined;
-            return res.send({ user, message: "Usuário autenticado com sucesso" });
+            return res.send({ user, token: createToken(user._id) });
         }catch(err){
             return res.status(500).send({ error: `Erro ao tentar autenticar usuário ${err}` });
         }
