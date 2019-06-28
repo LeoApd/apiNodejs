@@ -13,7 +13,8 @@ const url = config.bd_string; //pegar a url de conexão na config
 //conectar com o banco de dados
 const options = {
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 }
 mongoose.connect(url, options);
 mongoose.connection.on('error', (err) => {

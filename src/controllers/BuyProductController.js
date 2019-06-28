@@ -24,7 +24,7 @@ module.exports = {
             product.amount -= productQuantity;
             await product.save();
 
-            return res.send({ buyProduct, message: 'venda concluida' });
+            return res.send({ buyProduct, message: 'Pedido concluido' });
         }catch(err){
             return res.status(500).send({ error: 'Erro ao tentar realizar um  pedido' }) ;
         }
@@ -38,6 +38,15 @@ module.exports = {
         }catch(err){
             return res.status(500).send({ error: 'Erro ao buscar os pedidos' });
         }
-        
+    },
+
+    async cancelOrder (req, res) {
+        try{
+            const order = await BuyProduct.findByIdAndDelete( req.params.id );
+            if(!order) return res.send({ error: 'Pedido não encontrado' });
+            return res.send({ message: 'Pedido cancelado' })
+        }catch( err ) {
+            res.status(500),send({ error: 'Erro ao cancelar pedido' })
+        }
     }
 }

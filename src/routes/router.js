@@ -18,10 +18,12 @@ routes.post('/user/create', UserController.create);
 
 //rota de autenticação
 routes.post('/user/auth', UserController.auth);
+routes.post('/user/forgotPassword', UserController.forgotPassword);
 
 //rota de compra
 routes.post('/product/:id/buy', auth, BuyProductController.buyItem);
 routes.get('/product/myOrder', auth, BuyProductController.myOrder)
+routes.get('/product/:id/cancel', auth, BuyProductController.cancelOrder)
 
 module.exports = routes;//teste teste ultimo teste
 

@@ -6,7 +6,11 @@ const config = () => {
         return {
             bd_string: 'mongodb+srv://user_admin:357159@cluster0-piatq.mongodb.net/test?retryWrites=true&w=majority',
             JWT_SECRET: 'melancia',
-            JWT_EXPIRES_IN: '7d'
+            JWT_EXPIRES_IN: '7d',
+            HOST: 'smtp.mailtrap.io',
+            PORT: '2525',
+            USER: 'd147f2514a5706',
+            PASS: '40c7ce3e0a8298'
         }
         case 'html':
         return{
