@@ -8,7 +8,7 @@ const config = () => {
             JWT_SECRET: 'melancia',
             JWT_EXPIRES_IN: '7d',
             HOST: 'smtp.mailtrap.io',
-            PORT: '2525',
+            PORT: 2525,
             USER: 'd147f2514a5706',
             PASS: '40c7ce3e0a8298'
         }

@@ -1,14 +1,21 @@
 const Product = require('../models/Product');
 const auth = require('../middleware/auth');
+
 module.exports = {
     async save (req, res) {
         const { code, name, value, amount, description } = req.body;
+        var produtCreate = [ code, name, value, amount, description ];
         try{
+
+/*          await Promise.all(produtCreate.map(async element => {
+                if(await element == '') return res.send({ error: 'Campos vazio'});
+            })); */
+            if(!code || !name || !value || !amount || !description) return res.send({ error: 'Campos vazio' }); 
             if(await Product.findOne({ code })) return res.status(502).send({ error: 'Produto já cadastrado' });
             const product = await Product.create( req.body );
             res.send({ product, message: "Produto cadastrado" });
         }catch(err){
-            return res.status(500).send({ error: 'Erro ao cadastrar o produto' });
+            return res.status(500).send({ error: 'Erro ao cadastrar o produto' + err});
         } 
     },
 

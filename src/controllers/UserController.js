@@ -8,15 +8,16 @@ createToken = (userId) => {
     return jwt.sign({ id: userId }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRES_IN });
 }
 module.exports = {
-    async create (req, res) {
+    async newUser (req, res) {
         try{
             const { cpf } = req.body;
             if(await User.findOne({ cpf })) return res.status(400).send({ error: "Cpf já cadastrado" });
+            console.log( req.body );
             const user = await User.create(req.body);
             user.password = undefined;
             return res.send({ user, message: "Usuário cadastrado com sucesso" });
         }catch(err){
-            return res.status(500).send({ error: 'Erro ao cadastrar user' });
+            return res.status(500).send({ error: 'Erro ao cadastrar user' + err});
         }
     },
 
@@ -45,7 +46,7 @@ module.exports = {
             now.setHours(now.getHours() + 1);
 
             await User.findOneAndUpdate(user.id, {
-                passwordResetTotken: token,
+                passwordResetToken: token,
                 passwordResetExpires: now
             });
 
@@ -65,6 +66,30 @@ module.exports = {
         }catch(err){
             console.log(err);
             return res.status(500).send({ error: 'Erro ao tentar recuperar a senha' });
+        }
+    },
+
+    async resetPassword (req, res){
+        const { email, token, password } = req.body;
+        try{
+            const user = await User.findOne({ email })
+                .select('+passwordResetToken passwordResetExpires');
+
+            console.log(user.passwordResetToken);
+            console.log(token)
+            
+            if(!user) return res.status(400).send({ error: 'Usuáio não encontrado' });
+
+            if(!token == user.passwordResetTotken)
+                return res.send({ error: 'Token invalido' })
+
+            const now = new Date();
+            if(now > user.passwordResetExpires) return res.send({ error: "Token expirado" });
+                user.password = password;
+                await user.save();
+                res.send({ });
+        }catch(err){
+            return res.send({ error: 'erro ao tentar alterar a senha' })
         }
     }
 }
