@@ -7,14 +7,16 @@ const BuyProductController = require('../controllers/BuyProductController')
 const routes = express.Router();
 
 //rotas produto
-routes.post('/product/create', ProductController.save);
-routes.get('/product/list', ProductController.list);
-routes.put('/product/:id/update', ProductController.update);
-routes.delete('/product/:id/delete', ProductController.delele);
-routes.post('/product/listOne', ProductController.listOne);
+routes.post('/product/create', auth, ProductController.save);
+routes.get('/product/list', auth, ProductController.list);
+routes.put('/product/:id/update', auth, ProductController.update);
+routes.delete('/product/:id/delete', auth, ProductController.delele);
+routes.post('/product/listOne', auth, ProductController.listOne);
 
 //rotas usuário
 routes.post('/user/create', UserController.newUser);
+routes.get('/user/delete', auth, UserController.deleteUser);
+routes.put('/user/update', auth, UserController.updateUser)
 
 //rota de autenticação
 routes.post('/user/auth', UserController.auth);

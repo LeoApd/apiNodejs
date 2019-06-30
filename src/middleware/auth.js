@@ -9,7 +9,8 @@ const auth = (req, res, next) => {
     
     jwt.verify(token_header, config.JWT_SECRET, (err, decoded) =>{
         if(err) res.send({ error: 'Tokem inválido' });
-        req.userId = decoded.id;
+        //req.userId = decoded.id;
+        req.locals = decoded;
         return next();
     })
 }

@@ -1,15 +1,13 @@
 const Product = require('../models/Product');
 const auth = require('../middleware/auth');
+const User = require('../models/User');
 
 module.exports = {
     async save (req, res) {
         const { code, name, value, amount, description } = req.body;
-        var produtCreate = [ code, name, value, amount, description ];
         try{
-
-/*          await Promise.all(produtCreate.map(async element => {
-                if(await element == '') return res.send({ error: 'Campos vazio'});
-            })); */
+            const user = await User.findById(req.locals.id);
+            if(user.profile != 'admin') return res.send({ error:'Seu perfil não é de administrador, função apenas de admin' });
             if(!code || !name || !value || !amount || !description) return res.send({ error: 'Campos vazio' }); 
             if(await Product.findOne({ code })) return res.status(502).send({ error: 'Produto já cadastrado' });
             const product = await Product.create( req.body );
@@ -58,3 +56,8 @@ module.exports = {
 
 }
 
+
+
+/*          await Promise.all(produtCreate.map(async element => {
+                if(await element == '') return res.send({ error: 'Campos vazio'});
+            })); */
