@@ -4,8 +4,8 @@ const config = require('../config/config');
 const crypto = require('crypto');
 const mailer = require('../modules/mailer');
 
-createToken = (userId) => {
-    return jwt.sign({ id: userId }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRES_IN });
+createToken = (userId, profile) => {
+    return jwt.sign({ id: userId, profile: profile }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRES_IN });
 }
 module.exports = {
     async newUser (req, res) {
@@ -29,7 +29,7 @@ module.exports = {
             if(!user) return res.send({ error: "Credenciais não cadastradas" });
             if(await password != user.password) return res.send({ error: 'Usuário ou senha invalido' });
             user.password = undefined;
-            return res.send({ user, token: createToken(user._id) });
+            return res.send({ user, token: createToken(user._id, user.profile) });
         }catch(err){
             return res.status(500).send({ error: `Erro ao tentar autenticar usuário ${err}` });
         }
@@ -91,5 +91,17 @@ module.exports = {
         }catch(err){
             return res.send({ error: 'erro ao tentar alterar a senha' })
         }
+    },
+
+    async deleteUser (req, res) {
+        if(!await User.findByIdAndDelete( req.locals.id )) return res.send({ eror: 'Usuário não encontrado' });
+        return res.send({ error: 'Usuário excluído' });
+    },
+
+    async updateUser (req, res) {
+        const user = await User.findByIdAndUpdate(req.locals.id, req.body, {new:true}) 
+        if(!user) return res.send({ error: 'Usuário não encotrado' });
+        return res.send({ user, message: 'Usuário alterado' }); 
     }
+    
 }

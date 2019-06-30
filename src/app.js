@@ -14,7 +14,7 @@ const url = config.bd_string; //pegar a url de conexão na config
 const options = {
     useNewUrlParser: true,
     useCreateIndex: true,
-    /* useFindAndModify: false */
+    useFindAndModify: false
 }
 mongoose.connect(url, options);
 mongoose.connection.on('error', (err) => {
