@@ -2,6 +2,7 @@
 const express = require('express');//importanto dependencia do express
 const mongoose = require('mongoose')//importando dependencia do mongo
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 //import arquivos internos
 const config = require('./config/config');//importando as configuranção
@@ -30,6 +31,9 @@ mongoose.connection.on('connected', () => {
 //preciso do bodyparser para trador dos dados no corpo da requisição(outra opção e o multer)
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+//permitri qyue todo tipo de aplicação user a api
+app.use(cors());
 
 //configurar route
 app.use(require('./routes/router'));

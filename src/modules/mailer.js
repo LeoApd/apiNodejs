@@ -17,7 +17,7 @@ const handlebarsOptions = {
        /*  viewPath: './src/resources/mail', */
         extName: '.html',
         partialsDir: './src/resources/mail/',
-        layoutsDir: './src/resources/mail',
+        layoutsDir: './src/resources/mail/',
         defaultLayout: 'forgot_password.html'
     },
     viewPath: './src/resources/mail',

@@ -6,6 +6,7 @@ const ProductController = require('../controllers/ProductController');
 const UserController = require('../controllers/UserController');
 const BuyProductController = require('../controllers/BuyProductController');
 const ShoppingCart = require('../controllers/ShoppingCartController');
+const PromotionCintroller = require('../controllers/PromotionController');
 
 const routes = express.Router();
 
@@ -25,6 +26,7 @@ routes.put('/user/update', auth, UserController.updateUser)
 routes.post('/user/auth', UserController.auth);
 routes.post('/user/forgotPassword', UserController.forgotPassword);
 routes.post('/user/resetPassword', UserController.resetPassword);
+routes.get('/user/logout', auth, UserController.logout);
 
 //rota de compra
 routes.post('/product/:id/buy', auth, BuyProductController.buyItem);
@@ -34,6 +36,9 @@ routes.get('/product/:id/cancel', auth, BuyProductController.cancelOrder);
 //rota carrinho
 routes.get('/cart/:id/add', auth, ShoppingCart.addCart);
 routes.delete('/cart/:id/remove', auth, ShoppingCart.removeCart);
+
+/* //promoção
+router.post('/promotion/add', auth, PromotionCintroller.addPromotion); */
 
 module.exports = routes;//teste teste ultimo teste
 

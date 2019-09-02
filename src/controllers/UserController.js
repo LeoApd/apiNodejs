@@ -7,10 +7,16 @@ const mailer = require('../modules/mailer');
 createToken = (userId, profile) => {
     return jwt.sign({ id: userId, profile: profile }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRES_IN });
 }
+
+destroyToken = () =>{
+    return jwt.destroyToken({  })
+}
+
 module.exports = {
     async newUser (req, res) {
         try{
             const { cpf } = req.body;
+            console.log(req.body)
             if(await User.findOne({ cpf })) return res.status(400).send({ error: "Cpf já cadastrado" });
             console.log( req.body );
             const user = await User.create(req.body);
@@ -24,6 +30,9 @@ module.exports = {
     async auth (req, res){
         try{
             const { login, password } = req.body;
+
+            console.log(req.body);
+
             if(!login || !password) return res.send({ error: "Preencha login e senha" });
             const user = await User.findOne({ login }).select('+password');
             if(!user) return res.send({ error: "Credenciais não cadastradas" });
@@ -91,6 +100,10 @@ module.exports = {
         }catch(err){
             return res.send({ error: 'erro ao tentar alterar a senha' })
         }
+    },
+
+    async logout (req, res){
+        console.log(req.headers);
     },
 
     async deleteUser (req, res) {
